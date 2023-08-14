@@ -25,7 +25,10 @@ app.UseExceptionHandler("/error");
 
 app.UseHttpsRedirection();
 
+app.UseAuthorization();
 
 app.UseMiddleware<GloblalExceptionHandlingMiddleware>();
+
+app.MapControllers();
 
 app.Run();
