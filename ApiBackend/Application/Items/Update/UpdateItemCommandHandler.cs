@@ -22,7 +22,7 @@ namespace Application.Items.Update
             }
 
             Item item = Item.UpdateItem(itemUpdate.Id, itemUpdate.itemDescription,
-                itemUpdate.ItemState);
+                itemUpdate.itemState);
 
             _itemRepository.Update(item);
 

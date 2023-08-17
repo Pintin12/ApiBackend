@@ -11,5 +11,5 @@ namespace Application.Items.Update
     public record UpdateItemCommand(
         Guid Id,
         string itemDescription,
-        bool ItemState) : IRequest<ErrorOr<Unit>>;
+        bool itemState) : IRequest<ErrorOr<Unit>>;
 }

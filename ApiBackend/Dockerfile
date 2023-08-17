@@ -2,12 +2,18 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+
+ENV ASPNETCORE_URLS http://*:44319
+ENV ASPNETCORE_ENVIRONMENT=Development
+
+EXPOSE 44319
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["WebApi/WebApi.csproj", "WebApi/"]
+COPY ["ApiBackend/WebApi/WebApi.csproj", "ApiBackend/WebApi/"]
+COPY ["ApiBackend/Application/Application.csproj", "ApiBackend/Application/"]
+COPY ["ApiBackend/Domain/Domain.csproj", "ApiBackend/Domain/"]
+COPY ["ApiBackend/Infrastructure/Infrastructure.csproj", "ApiBackend/Infrastructure/"]
 RUN dotnet restore "WebApi/WebApi.csproj"
 COPY . .
 WORKDIR "/src/WebApi"

@@ -16,37 +16,37 @@ namespace WebApi.Controllers
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
-        [HttpGet]
+        [HttpGet("GetItems")]
         public async Task<IActionResult> GetAllAsync()
         {
             var itemsResult = await _mediator.Send(new GetAllItemsQuery());
 
             return itemsResult.Match(
-                customers => Ok(customers),
+                items => Ok(items),
                 errors => Problem(errors)
             );
         }
 
      
-        [HttpPost]
+        [HttpPost("CreateItem")]
         public async Task<IActionResult> Create([FromBody] CreateItemCommand command)
         {
             var createResult = await _mediator.Send(command);
 
             return createResult.Match(
-                customerId => Ok(customerId),
+                itemId => Ok(itemId),
                 errors => Problem(errors)
             );
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateItem/{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateItemCommand command)
         {
             if (command.Id != id)
             {
                 List<Error> errors = new()
             {
-                Error.Validation("Customer.UpdateInvalid", "The request Id does not match with the url Id.")
+                Error.Validation("Item UpdateInvalid", "The request Id does not match with the url Id.")
             };
                 return Problem(errors);
             }
@@ -54,7 +54,7 @@ namespace WebApi.Controllers
             var updateResult = await _mediator.Send(command);
 
             return updateResult.Match(
-                customerId => NoContent(),
+                itemId => NoContent(),
                 errors => Problem(errors)
             );
         }

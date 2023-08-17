@@ -11,8 +11,8 @@ namespace Application.Items.Update
     {
         public UpdateItemCommandValidator() { 
             RuleFor(r=> r.Id).NotEmpty();
-            RuleFor(r=>r.itemDescription).NotEmpty();
-            RuleFor(r=>r.ItemState).NotEmpty();
+           
+           
         }
     }
 }
